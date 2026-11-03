@@ -1,0 +1,22 @@
+import { api } from './client';
+export const getMe = () => api('/auth/me');
+export const getPatients = (q='') => api(`/patients${q ? `?q=${encodeURIComponent(q)}` : ''}`);
+export const createPatient = (payload, key) => api('/patients', {method:'POST', body:payload, headers:key ? {'Idempotency-Key':key} : {}});
+export const getPatient = id => api(`/patients/${encodeURIComponent(id)}`);
+export const getConsents = id => api(`/patients/${encodeURIComponent(id)}/consents`);
+export const addConsent = (id, payload) => api(`/patients/${encodeURIComponent(id)}/consents`, {method:'POST', body:payload});
+export const getTimeline = id => api(`/patients/${encodeURIComponent(id)}/timeline`);
+export const getScreenings = (patientId='') => api(`/screenings${patientId ? `?patient_id=${encodeURIComponent(patientId)}` : ''}`);
+export const getScreening = id => api(`/screenings/${encodeURIComponent(id)}`);
+export const createScreening = payload => api('/screenings', {method:'POST', body:payload});
+export const uploadScreeningImage = (id, asset, view) => {
+  const form = new FormData();
+  form.append('view', view);
+  form.append('file', {uri:asset.uri, name:asset.fileName || `oral-photo-${Date.now()}.jpg`, type:asset.mimeType || 'image/jpeg'});
+  return api(`/screenings/${encodeURIComponent(id)}/images`, {method:'POST', body:form});
+};
+export const analyzeScreening = (screening_id, image_id) => api('/ai/analyze', {method:'POST', body:{screening_id,image_id}});
+export const getAppointments = () => api('/appointments');
+export const getNotifications = () => api('/notifications');
+export const markNotificationRead = id => api(`/notifications/${encodeURIComponent(id)}`, {method:'PATCH'});
+export const getVideoLink = id => api(`/appointments/${encodeURIComponent(id)}/video`);

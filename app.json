@@ -1,0 +1,46 @@
+{
+  "expo": {
+    "name": "Aarogya Drishti",
+    "slug": "aarogya-drishti-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "android": {
+      "package": "org.aarogyadrishti.mobile",
+      "permissions": [
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.RECEIVE_BOOT_COMPLETED",
+        "android.permission.CAMERA",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "edgeToEdgeEnabled": true,
+      "softwareKeyboardLayoutMode": "resize"
+    },
+    "plugins": [
+      "expo-notifications",
+      [
+        "expo-sqlite",
+        {
+          "enableFTS": true
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Aarogya Drishti to select oral screening photographs.",
+          "cameraPermission": "Allow Aarogya Drishti to capture oral screening photographs."
+        }
+      ]
+    ],
+    "extra": {
+      "apiBaseUrl": "http://10.0.2.2:8000",
+      "eas": {
+        "projectId": "d770978f-4a0a-47a4-9f7b-14d69e147cd2"
+      }
+    },
+    "ios": {
+      "supportsTablet": false
+    }
+  }
+}
